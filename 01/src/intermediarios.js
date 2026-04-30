@@ -1,3 +1,11 @@
-const senha = 'cubos123'
+const senhaCorreta = "cubos123";
 
-module.exports = senha
+const validadorDeSenha = (req, res, next) => {
+    const { senha } = req.query;
+    if (senha !== senhaCorreta) {
+        return res.status(401).json({ mensagem: "A senha está incorreta." });
+    }
+    next();
+};
+
+module.exports = validadorDeSenha;

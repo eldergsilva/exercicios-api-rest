@@ -3,7 +3,7 @@ const { listarAlunos, adicionarAluno } = require('./controladores/alunos');
 const rotas = express();
 
 rotas.get('/alunos',listarAlunos);
-rotas.post('/aluno',adicionarAluno);
+rotas.post('/alunos',adicionarAluno);
 
 
 
