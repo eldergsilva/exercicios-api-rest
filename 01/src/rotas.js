@@ -1,9 +1,9 @@
 const express = require('express');
-const { listarAlunos } = require('./controladores/alunos');
+const { listarAlunos, adicionarAluno } = require('./controladores/alunos');
 const rotas = express();
 
 rotas.get('/alunos',listarAlunos);
-rotas.get('');
+rotas.post('/aluno',adicionarAluno);
 
 
 

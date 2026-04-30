@@ -3,13 +3,11 @@ const senha = require('./intermediarios');
 const rotas = require('./rotas');
 const app = express();
 
+app.use(express.json());
+app.use(senha);         
+app.use(rotas);
 
-
-app.use(rotas)
-
- 
-
-const PORT = 3000
-app.listen(PORT ,()=>{
-    console.log(`Servidor no ar na porta ${PORT }`)
-})
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor no ar na porta ${PORT}`);
+});
