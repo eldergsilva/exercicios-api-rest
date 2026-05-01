@@ -34,6 +34,46 @@ const adicionarAluno = (req, res) => {
     return res.status(201).json(novoAluno); 
 }
 
+const editarAluno =(req,res)=>{
+    const { id } = req.params;
+             
+
+   const { nome, sobrenome, idade, curso } = req.body;
+
+    if (!nome) {
+        return res.status(400).json({ mensagem: "O nome é obrigatório." });
+    }
+    if (!sobrenome) {
+        return res.status(400).json({ mensagem: "O sobrenome é obrigatório." });
+    }
+    if (!idade) {
+        return res.status(400).json({ mensagem: "A idade é obrigatória." });
+    }
+    if (idade < 18) {
+        return res.status(400).json({ mensagem: "A idade mínima é de 18 anos." });
+    }
+    if (!curso) {
+        return res.status(400).json({ mensagem: "O curso é obrigatório." });
+    }
+    if (!listaDeCursos.includes(curso)){
+        return res.status(400).json({ mensagem: "O curso não existe" });
+    }      
+    
+    const aluno = listaDeAlunos.find( (aluno)=>{
+        return aluno.id === Number(id)
+    });
+    if (!aluno) {
+    return res.status(404).json({ mensagem: "Aluno não encontrado." });
+}
+     aluno.nome = nome;
+     aluno.sobrenome = sobrenome;
+     aluno.idade = idade;
+     aluno.curso=curso;
+      
+     return res.status(200).json(aluno);
+   
+
+}
 
 const deletarAluno = (req, res) => {
     const { id } = req.params;
@@ -52,8 +92,10 @@ const deletarAluno = (req, res) => {
     return res.status(204).send();
 };
 
+
 module.exports={
      listarAlunos,
      adicionarAluno,
+     editarAluno,
      deletarAluno
 }
