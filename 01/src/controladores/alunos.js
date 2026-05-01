@@ -75,6 +75,39 @@ const editarAluno =(req,res)=>{
 
 }
 
+const atualizarAluno = (req,res) =>{
+   const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ mensagem: "O id não foi informado." });
+    }    
+    
+    const { nome, sobrenome, idade, curso } = req.body;
+
+    if (idade && idade < 18) {
+        return res.status(400).json({ mensagem: "A idade mínima é de 18 anos." });
+    }
+
+    if (curso && !listaDeCursos.includes(curso)){
+        return res.status(400).json({ mensagem: "O curso não existe" });
+    } 
+    
+    const aluno = listaDeAlunos.find( (aluno)=>{
+        return aluno.id === Number(id)
+    });
+    if (!aluno) {
+    return res.status(404).json({ mensagem: "Aluno não encontrado." });
+    }
+
+     if (nome) aluno.nome = nome;
+     if (sobrenome) aluno.sobrenome = sobrenome;
+     if (idade) aluno.idade = idade;
+     if (curso) aluno.curso = curso;
+      
+     return res.status(200).json(aluno);
+
+
+}
+
 const deletarAluno = (req, res) => {
     const { id } = req.params;
     if (!id) {
@@ -97,5 +130,6 @@ module.exports={
      listarAlunos,
      adicionarAluno,
      editarAluno,
+     atualizarAluno,
      deletarAluno
 }
