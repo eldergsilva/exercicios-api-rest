@@ -4,8 +4,7 @@ const rotas = require('./roteador');
 const app = express();
 
 app.use(express.json())
-
-app.use(senha)
+ 
 app.use(rotas)
 
  
