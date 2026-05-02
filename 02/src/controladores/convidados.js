@@ -14,4 +14,26 @@ const listarConvidados = (req, res) => {
     return res.status(404).json({ mensagem: "O convidado buscado não está presente na lista." });
 }
 
-module.exports = { listarConvidados };
+
+
+const adicionarConvidado = (req,res)=>{
+   const {nome} = req.body ;
+   if (!nome) {
+        return res.status(400).json({ mensagem: "Nome não informado." });
+    }
+
+   if (listaDeConvidados.includes(nome)) {
+            return res.status(404).json({ mensagem: "O nome do convidado a ser adicionado já existe na lista. Caso queria adicionar outro convidado de mesmo nome, favor fornecer o sobrenome também." });
+
+    }  
+
+    listaDeConvidados.push(nome);
+
+    return res.status(201).json({ mensagem: "Convidado adicionado." });
+}
+ 
+
+module.exports = { 
+    listarConvidados,
+    adicionarConvidado
+ };
