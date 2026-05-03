@@ -32,8 +32,26 @@ const adicionarConvidado = (req,res)=>{
     return res.status(201).json({ mensagem: "Convidado adicionado." });
 }
  
+const removerConvidado =(req,res)=>{
 
+   const { nome } = req.params;
+
+
+   if (!nome) {
+        return res.status(400).json({ mensagem: "Nome não informado." });
+    }
+  if (!listaDeConvidados.includes(nome)) {
+    return res.status(404).json({ mensagem: "Convidado não encontrado." });
+}
+
+    const indice = listaDeConvidados.findIndex((convidado) => convidado === nome);
+     listaDeConvidados.splice(indice, 1);
+      
+    return res.status(200).json({ mensagem: "Convidado removido." });
+
+}
 module.exports = { 
     listarConvidados,
-    adicionarConvidado
+    adicionarConvidado,
+    removerConvidado
  };
