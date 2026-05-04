@@ -5,20 +5,31 @@ const listarColecao =(req,res)=>{
 
 }
 
-const consultarLivroPorId = (req,res)=>{
-    const {id}= req.params
-   
+const consultarLivroPorId = (req, res) => {
+    const { id } = req.params;
+
+     
     if (!id || isNaN(Number(id))) {
+        return res.status(400).json({
+            mensagem: "O valor do parâmetro ID da URL não é um número válido."
+        });
+    }
 
-    return res.status(400).json({mensagem: "O valor do parâmetro ID da URL não é um número válido."
+     
+    const livroAchado = livros.find((livro) => {
+        return livro.id === Number(id);
     });
-}
-    const livroAchado = livros.find((livro)=>{
-        return livro.id === Number(id)
-    })
 
-    return  res.status(200).json(livroAchado)
-}
+     
+    if (!livroAchado) {
+        return res.status(404).json({
+            mensagem: "Não existe livro para o ID informado."
+        });
+    }
+
+    
+    return res.status(200).json(livroAchado);
+};
 
 module.exports={
     listarColecao,
