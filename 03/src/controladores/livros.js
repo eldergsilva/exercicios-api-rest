@@ -110,9 +110,32 @@ const substituirUmLivro =( req,res)=>{
 }
 
 
+const alterarUmLivro = (req, res) => {
+    const { id } = req.params;
+    const { titulo, autor, ano, numPaginas } = req.body;
+
+    if (isNaN(Number(id))) {
+        return res.status(400).json({ mensagem: "ID inválido." });
+    }
+
+    const livroAchado = livros.find((livro) => livro.id === Number(id));
+
+    if (!livroAchado) {
+        return res.status(404).json({ mensagem: "Livro não encontrado." });
+    }
+
+     
+    livroAchado.titulo = titulo ?? livroAchado.titulo;
+    livroAchado.autor = autor ?? livroAchado.autor;
+    livroAchado.ano = ano ?? livroAchado.ano;
+    livroAchado.numPaginas = numPaginas ?? livroAchado.numPaginas;
+
+    return res.status(200).json({ mensagem: "Livro alterado com sucesso.", livro: livroAchado });
+}
 module.exports={
     listarColecao,
     consultarLivroPorId,
     adicionarUmLivro,
-    substituirUmLivro
+    substituirUmLivro,
+    alterarUmLivro
 }
