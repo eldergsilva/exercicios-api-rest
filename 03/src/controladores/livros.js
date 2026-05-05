@@ -1,4 +1,5 @@
 const livros = require('../dados/livros');
+
 let proximoId = 3;
 
 const listarColecao = (req, res) => {
